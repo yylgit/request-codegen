@@ -14,16 +14,22 @@ The generator writes four files into a caller-selected output directory:
 
 ## Quick Start
 
-Run generation from the repository root:
+Run generation from the repository root using the included test spec:
 
 ```bash
-pnpm --filter @ai-standard-project/request-codegen run generate -- --input ../../src/api/rap-swagger.json --out ../../src/api
+pnpm run generate:test
 ```
 
-Use absolute paths when generating into another project directory:
+Or use the CLI directly:
 
 ```bash
-pnpm --filter @ai-standard-project/request-codegen run generate -- --input /absolute/path/openapi.json --out /absolute/path/generated-api
+pnpm run generate -- --input test/users.swagger.json --out test
+```
+
+Use `--filter` when running from a monorepo root or generating into another project:
+
+```bash
+pnpm --filter @vibefe/request-codegen run generate -- --input /absolute/path/openapi.json --out /absolute/path/generated-api
 ```
 
 The CLI requires both arguments:
@@ -36,11 +42,11 @@ The CLI requires both arguments:
 ## Commands
 
 ```bash
-pnpm --filter @ai-standard-project/request-codegen run generate -- --input ../../src/api/rap-swagger.json --out ../../src/api
-pnpm --filter @ai-standard-project/request-codegen run typecheck
-pnpm --filter @ai-standard-project/request-codegen run test
-pnpm --filter @ai-standard-project/request-codegen run test:watch
-pnpm --filter @ai-standard-project/request-codegen run build
+pnpm run generate -- --input test/users.swagger.json --out test
+pnpm run typecheck
+pnpm run test
+pnpm run test:watch
+pnpm run build
 ```
 
 `build` emits the package CLI to `dist/cli.js` and exposes the `request-codegen`

@@ -14,11 +14,21 @@
     "publish:changeset": "changeset publish",
     "verify:version": "node scripts/check-version-change.js",
     "generate": "tsx src/cli.ts",
+    "generate:test": "tsx src/cli.ts --input test/users.swagger.json --out test/generated",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {},
+  "peerDependencies": {
+    "axios": "^1.0.0",
+    "@tanstack/react-query": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@tanstack/react-query": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@types/node": "^24.12.0",
     "@changesets/cli": "^2.25.0",
