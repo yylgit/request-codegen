@@ -14,7 +14,9 @@
     "publish:changeset": "changeset publish",
     "verify:version": "node scripts/check-version-change.js",
     "generate": "tsx src/cli.ts",
-    "generate:test": "tsx src/cli.ts --input test/users.swagger.json --out test/generated",
+    "generate:test": "tsx src/cli.ts --input test/users.swagger.json --out test/react-app/src/generated",
+    "test:app:install": "cd test/react-app && pnpm install",
+    "test:app:dev": "cd test/react-app && pnpm dev",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"
