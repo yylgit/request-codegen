@@ -1,5 +1,7 @@
+import { realpathSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import { extname, resolve } from 'node:path'
+import { pathToFileURL } from 'node:url'
 
 import { generateModels } from './generate-models.js'
 import { generateRuntime, generateRuntimeInternal } from './generate-runtime.js'
@@ -110,7 +112,8 @@ function readArgValue(argv: string[], index: number, name: string) {
   return value
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+const realArgv1 = realpathSync(process.argv[1])
+if (import.meta.url === pathToFileURL(realArgv1).href) {
   const exitCode = await main()
   process.exitCode = exitCode
 }

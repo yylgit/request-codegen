@@ -1,19 +1,31 @@
 {
   "name": "@vibefe/request-codegen",
+  "version": "0.0.2",
+  "author": {
+    "email": "ysuyyl@126.com",
+    "name": "yiliang.yang"
+  },
+  "repository": {
+    "url": "https://github.com/yylgit/request-codegen"
+  },
   "private": false,
-  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "bin": {
     "request-codegen": "./dist/cli.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "changeset": "changeset",
     "version": "changeset version",
     "publish:changeset": "changeset publish",
     "verify:version": "node scripts/check-version-change.js",
-    "generate": "tsx src/cli.ts",
+    "request-codegen": "node dist/cli.js",
     "generate:test": "tsx src/cli.ts --input test/users.swagger.json --out test/react-app/src/generated",
     "test:app:install": "cd test/react-app && pnpm install",
     "test:app:dev": "cd test/react-app && pnpm dev",
