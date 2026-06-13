@@ -1,7 +1,7 @@
 # request-codegen
 
-Workspace-local TypeScript CLI for generating typed API model and request helper
-files from OpenAPI 3 JSON.
+TypeScript CLI for generating typed API model and request helper files from
+OpenAPI 3 JSON.
 
 The generator writes four files into a caller-selected output directory:
 
@@ -12,24 +12,25 @@ The generator writes four files into a caller-selected output directory:
   helpers for public application imports.
 - `request.internal.ts`: generated runtime helpers used by `request.ts`.
 
-## Quick Start
-
-Run generation from the repository root using the included test spec:
+## Installation
 
 ```bash
-pnpm run generate:test
+pnpm add @vibefe/request-codegen axios @tanstack/react-query
+# or
+npm install @vibefe/request-codegen axios @tanstack/react-query
+# or
+yarn add @vibefe/request-codegen axios @tanstack/react-query
 ```
 
-Or use the CLI directly:
+`axios` and `@tanstack/react-query` are peer dependencies required by the
+generated runtime.
+
+## Usage
+
+Run the CLI with an OpenAPI 3.x JSON spec and an output directory:
 
 ```bash
-pnpm run generate -- --input test/users.swagger.json --out test
-```
-
-Use `--filter` when running from a monorepo root or generating into another project:
-
-```bash
-pnpm --filter @vibefe/request-codegen run generate -- --input /absolute/path/openapi.json --out /absolute/path/generated-api
+npx request-codegen --input ./openapi.json --out ./src/api
 ```
 
 The CLI requires both arguments:
@@ -38,19 +39,6 @@ The CLI requires both arguments:
 | --- | --- |
 | `--input <path>` | OpenAPI 3.x JSON file. YAML is not supported. |
 | `--out <directory>` | Directory where `AGENT.md`, `models.ts`, `request.ts`, and `request.internal.ts` are written. |
-
-## Commands
-
-```bash
-pnpm run generate -- --input test/users.swagger.json --out test
-pnpm run typecheck
-pnpm run test
-pnpm run test:watch
-pnpm run build
-```
-
-`build` emits the package CLI to `dist/cli.js` and exposes the `request-codegen`
-bin declared in `package.json`.
 
 ## Generated Contract
 
@@ -198,16 +186,3 @@ Refusing to overwrite non-generated file: <path>
 
 Move or rename hand-written `AGENT.md`, `models.ts`, `request.ts`, or
 `request.internal.ts` files before generating into the same directory.
-
-## Project Structure
-
-```text
-src/cli.ts                Argument parsing and command orchestration
-src/openapi.ts            OpenAPI normalization
-src/schema-to-ts.ts       OpenAPI schema to TypeScript rendering
-src/generate-models.ts    models.ts generator
-src/generate-runtime.ts   request.ts and request.internal.ts generator
-src/write-file.ts         Generated-file write safety
-src/**/*.test.ts          Vitest coverage for the generator
-src/__fixtures__/         Type inference fixtures
-```
